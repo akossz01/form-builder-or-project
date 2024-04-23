@@ -3,7 +3,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 
 export const routes: Routes = [
     {
-        path: 'statistics', // localhost:4200/statistics
+        path: 'statistics/:fromId',
         component: StatisticsComponent
     }
 ];
