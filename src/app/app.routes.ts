@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
-import { StatisticsComponent } from './statistics/statistics.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
 
 export const routes: Routes = [
   { path: 'form/:formId', component: DynamicFormComponent },

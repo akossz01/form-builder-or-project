@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="total">
+    <p>{{ formId }} vote's</p>
+    <h2>{{ getTotalVotes() }}</h2>
+  </div>
+
+  <div class="chart-container">
+    <div class="lines">
+      <div class="line" style="bottom: 5px">0</div>
+      <div class="line" [style.bottom.%]="120">{{ getMaxVotes() }}</div>
+    </div>
+
+    <div class="chart">
+      <div
+        class="bar"
+        *ngFor="let option of getObjectKeys(fakeData); let i = index"
+        [style.height.%]="(fakeData[option] / getMaxVotes()) * 100"
+      >
+        <span class="bar-label">{{ fakeData[option] }}</span>
+        <span class="day-label animated">{{ option }}</span>
+      </div>
+    </div>
+  </div>
+</div>

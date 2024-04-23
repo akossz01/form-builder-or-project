@@ -1,0 +1,134 @@
+.container {
+  background-color: #f4f4f4;
+  padding: 30px;
+  border-radius: 8px;
+  width: 480px;
+  height: 240px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  margin-top: 70px;
+}
+
+.total h2,
+.total p {
+  margin: 0;
+}
+
+.total h2 {
+  margin-top: 8px;
+  color: #ff6f00; /* Orange color */
+}
+
+.chart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-top: 0px;
+  margin-right: 40px;
+  height: 100px;
+  z-index: 100;
+}
+
+.bar {
+  background-color: #fbc02d; /* Yellow color */
+  color: #fff;
+  padding: 8px;
+  text-align: center;
+  margin: 5px 0;
+  margin-left: 25px;
+  width: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  animation: grow 0.8s ease-in-out;
+}
+
+.bar:last-of-type {
+  margin-right: 0;
+}
+
+.bar-label,
+.day-label {
+  display: block;
+}
+
+.bar-label {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333; /* Dark text color */
+}
+
+.bar:hover {
+  z-index: 1;
+}
+
+.bar:hover .bar-label {
+  display: block;
+}
+
+.day-label {
+  font-size: 0.8em;
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333; /* Dark text color */
+}
+
+.line {
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  left: 0;
+  right: 0;
+  height: 0.5px;
+  width: 440px;
+  background-color: #ddd; /* Light gray color */
+  color: #ddd; /* Light gray color */
+  opacity: 0.7;
+}
+
+.lines {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.animated {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes grow {
+  0% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
