@@ -1,10 +1,10 @@
 <div class="main-container">
     <div class="form-container" *ngIf="!submitted" [ngClass]="{ 'completed-earlier': completedEarlier }">
-        <h1 class="form-title">{{formDetails.title}}</h1>
+        <h1 class="form-title">{{formDetails?.name}}</h1>
         <span class="divider"></span>
-        <p class="form-desc">{{formDetails.desc}}</p>
+        <p class="form-desc">{{formDetails?.desc}}</p>
 
-        <div *ngFor="let option of formDetails.options">
+        <div *ngFor="let option of formDetails?.options">
             <label>
                 <div class="option">
                     <input type="checkbox" [value]="option" (change)="onCheckboxChange(option, $event)" [disabled]="completedEarlier">

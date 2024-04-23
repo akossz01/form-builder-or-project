@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.css',
 })
@@ -15,6 +16,9 @@ export class DynamicFormComponent {
   errorNoSelection: boolean = false;
   submitted: boolean = false;
   completedEarlier: boolean = false;
+
+  // Replace with actual value from local storage
+  userToken: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMXI0N1U4Uzd6UHNCb3ZqYW4xcmwiLCJleHAiOjE3MTMyNzMwMDR9.dBEn5NzgcVSD2XJJ3HknQnZqTlv9kLNP05dl5oZsnYY';
 
   forms: any[] = [
     {
@@ -33,33 +37,34 @@ export class DynamicFormComponent {
 
   formId: string | any;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe((params) => {
       this.formId = params.get('formId');
-      this.formDetails = this.getFormData(this.formId);
     });
+    
+    await this.loadFormDetails();
+  }
 
-    // Fetcheles utan megnezzuk ha az adott hasznalo kitoltotte mar a formot
-    // pl. /form/check_form_completed -> header: token, body: form_id
-    /* fetch('http://141.147.42.101:3001/form/check_form_completed', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        token: 'your_token_here',
-      },
-      body: JSON.stringify({ form_id: this.formId }),
+  async loadFormDetails() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'auth': this.userToken,
+      'form-id': this.formId,
+    });
+    
+    return this.http.get<any>('http://141.147.42.101:3001/form/get_form_data', { headers })
+    .toPromise()
+    .then(data => {
+      this.formDetails = data;
+      
+      return this.formDetails;
     })
-      .then((response) => response.json())
-      .then((data) => {
-        this.completedEarlier = data.completed;
-      })
-      .catch((error) => {
-        console.error('Error checking form completion:', error);
-      }); */
-
-    // this.completedEarlier = true;
+    .catch(error => {
+      console.error('Error loading form details:', error);
+      throw error;
+    });
   }
 
   onCheckboxChange(option: string, event: any) {
@@ -76,10 +81,6 @@ export class DynamicFormComponent {
     this.errorNoSelection = this.selectedOptions.length === 0;
   }
 
-  getFormData(formId: string) {
-    const formData = this.forms.find((form) => form.id === formId);
-    return formData;
-  }
 
   onSubmit() {
     // Call the API to submit the form
@@ -89,6 +90,9 @@ export class DynamicFormComponent {
       this.errorNoSelection = this.selectedOptions.length === 0;
     } else {
       this.submitted = true;
+      
+      
+
       console.log(
         'Form submitted with options: ' +
           this.selectedOptions.join(', ') +
