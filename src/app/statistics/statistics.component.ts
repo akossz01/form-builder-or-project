@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css',
 })
@@ -19,13 +19,14 @@ export class StatisticsComponent {
 
   formId: string | any;
   userToken: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMXI0N1U4Uzd6UHNCb3ZqYW4xcmwiLCJleHAiOjE3MTMyNzMwMDR9.dBEn5NzgcVSD2XJJ3HknQnZqTlv9kLNP05dl5oZsnYY';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiWGxYd2k3Uk9ZTzg0UGU2bmdnNVgiLCJleHAiOjE3MTM4Nzg0MTV9.3UrMClnZFtzqfs_Wwk8OHBgXwm8d4_r-EoS3tb38Gto';
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe((params) => {
       this.formId = params.get('formId');
+      console.log(this.formId);
     });
 
     await this.loadFormDetails();
@@ -34,7 +35,7 @@ export class StatisticsComponent {
   async loadFormDetails() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'auth': this.userToken,
+      auth: this.userToken,
       'form-id': this.formId,
     });
 
@@ -47,7 +48,6 @@ export class StatisticsComponent {
         this.formStatistics = data;
 
         console.log(data);
-        
 
         return this.formStatistics;
       })
@@ -56,6 +56,4 @@ export class StatisticsComponent {
         throw error;
       });
   }
-
-
 }
