@@ -6,8 +6,14 @@
 
   <div class="chart-container">
     <div class="lines">
-      <div class="line" style="bottom: 5px">0</div>
-      <div class="line" [style.bottom.%]="120">{{ getMaxVotes() }}</div>
+      <div class="line" style="bottom: 5px">
+        <p>0</p>
+        <span class="line-bar"></span>
+      </div>
+      <div class="line" [style.bottom.%]="120">
+        <p>{{ getMaxVotes() }}</p>
+        <span class="line-bar"></span>
+      </div>
     </div>
 
     <div class="chart">

@@ -22,7 +22,7 @@ export class StatisticsComponent {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiWGxYd2k3Uk9ZTzg0UGU2bmdnNVgiLCJleHAiOjE3MTM4OTc3Mjd9.vH-lV3ak91mzOE7VLDVDFoNlBIg4xkIrnbLM23vb4Wc';
 
   fakeData: { [key: string]: number } = {
-    alma: 15,
+    alma: 55,
     korte: 2,
     banan: 10,
     pityoka: 3,
