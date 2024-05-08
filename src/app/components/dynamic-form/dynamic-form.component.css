@@ -1,0 +1,106 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.form-container .form-title,
+.form-desc {
+  margin: 0;
+}
+
+.form-desc {
+  margin-bottom: 10px;
+}
+
+.form-container {
+  width: fit-content;
+  max-width: 80vw;
+  padding: 40px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 300px;
+}
+
+.submit-btn {
+  background-image: linear-gradient(
+    to right,
+    #7474bf 0%,
+    #348ac7 51%,
+    #7474bf 100%
+  );
+  margin-top: 24px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 24px;
+  display: block;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
+}
+
+.divider {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 8px;
+  border-radius: 24px;
+  position: relative;
+  background: linear-gradient(to right, #7474bf 0%, #348ac7 51%, #7474bf 100%);
+  margin: 10px 0;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.submitted-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.check {
+  background-image: linear-gradient(
+    to right,
+    #7474bf 0%,
+    #348ac7 51%,
+    #7474bf 100%
+  );
+
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.check i {
+    color: white;
+    font-size: 48px;
+}
+
+.option {
+  display: flex;
+}
+
+.completed-earlier .checkbox-text {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
