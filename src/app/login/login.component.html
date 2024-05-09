@@ -1,0 +1,163 @@
+<div class="main-container">
+  <div class="images-side">
+    <!-- <img src="./../../../assets/img/heroimg1.png" alt="" class="hero-img-1" />
+    <img src="./../../../assets/img/heroimg2.png" alt="" class="hero-img-2" /> -->
+  </div>
+  <div class="form-side">
+    <div class="form-container" *ngIf="!registerFormVisible">
+      <div class="logo-top" routerLink="">
+        <!-- <img src="./../../../assets/img/chatbot_logo.jpg" alt="botme-logo"> -->
+        <h1>Form Builder</h1>
+      </div>
+      <div class="login-form">
+        <h2>Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input
+              pInputText
+              type="email"
+              id="loginEmail"
+              formControlName="email"
+              placeholder="Enter email address"
+              required
+            />
+            <div
+              *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched"
+              class="error-message"
+            >
+              Email is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <div class="pass-input">
+              <input
+                pInputText
+                type="{{ hidePassword ? 'password' : 'text' }}"
+                id="loginPassword"
+                formControlName="password"
+                placeholder="Enter password"
+                required
+              />
+              <div
+                *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+                class="error-message"
+              >
+                Password is required
+              </div>
+              <i class="fa-solid {{ hidePassword ? 'fa-eye' : 'fa-eye-slash' }} hide-pass" (click)="togglePasswordVisibility()"></i>
+            </div>
+          </div>
+          <div class="remember-me-group">
+            <input type="checkbox" id="remember-me" formControlName="remember"/>
+            <label for="rememberMe" class="remember-me-label"
+              >Remember Me</label
+            >
+            <span class="forgot-password-button" (click)="forgotPassword()"
+              >Forgot Password?
+            </span>
+          </div>
+          <!-- <div>
+            <button
+              type="submit"
+              class="login-button"
+              label="Login"
+              [disabled]="loginForm.invalid"
+            >
+              Sign in
+            </button>
+          </div> -->
+          <div>
+            <button
+              type="submit"
+              class="login-button"
+              label="Login"
+              [disabled]="loginForm.invalid || loadingLogin"
+            >
+              <ng-container *ngIf="!loadingLogin; else loadingTemplate"
+                >Sign in</ng-container
+              >
+              <ng-template #loadingTemplate>
+                <i class="fa fa-spinner fa-spin"></i>
+              </ng-template>
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="sign-with-google-button"
+              label="Sign in with Google"
+              (click)="googleSignIn()"
+            >
+              <i class="fa-brands fa-google"></i>
+              Sign in with Google
+            </button>
+          </div>
+          <p class="switch-register">
+            Don't have an account?
+            <span class="switch-register-button" (click)="toggleRegisterForm()"
+              >Sign up
+            </span>
+          </p>
+        </form>
+      </div>
+      <p class="copyright-text">© Form Builder 2024</p>
+    </div>
+
+    <div class="form-container" *ngIf="registerFormVisible">
+      <div class="logo-top" routerLink="">
+        <img src="./../../../assets/img/chatbot_logo.jpg" alt="botme-logo">
+        <h1>Form Builder</h1>
+      </div>
+      <div class="login-form">
+        <h2>Register</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <div class="form-group">
+            <label for="registerName">Name:</label>
+            <input
+              pInputText
+              type="text"
+              id="registerName"
+              formControlName="name"
+              class="register-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="registerEmail">Email:</label>
+            <input
+              type="email"
+              id="registerEmail"
+              formControlName="email"
+              class="register-input"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="registerPassword">Password:</label>
+            <input
+              type="password"
+              id="registerPassword"
+              formControlName="password"
+              class="register-input"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="login-button"
+            [disabled]="registerForm.invalid"
+          >Register</button>
+          <p class="switch-register">
+            Already have an account?
+            <span class="switch-register-button" (click)="toggleRegisterForm()"
+              >Log in
+            </span>
+          </p>
+        </form>
+      </div>
+      <p class="copyright-text">© Form Builder 2024</p>
+    </div>
+  </div>
+</div>
