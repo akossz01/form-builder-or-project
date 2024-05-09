@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +23,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    /*private router: Router,
-    private messageService: MessageService*/
+    private router: Router,
+    /* private messageService: MessageService */
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,13 +41,22 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      setTimeout(async () => {
+      try {
+        setTimeout(async () => {
+          const { email, password, remember } = this.loginForm.value;
+          this.loadingLogin = true;
+          console.log('Login called');
 
-        const { email, password, remember } = this.loginForm.value;
-
-        await this.authService.login(email, password);
-
-      }, 2000);
+          const success = await this.authService.login(email, password);
+          if (success) {
+            this.router.navigate(['']); // Redirect to main page on successful login
+          }
+        }, 2000);
+      } catch (error) {
+        console.error('Login error:', error);
+      } finally {
+        this.loadingLogin = false;
+      }
     }
   }
   onRegister() {

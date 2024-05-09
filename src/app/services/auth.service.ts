@@ -14,7 +14,25 @@ export class AuthService {
   //register post request koviket varja name, email,password a bodyban
   //sikeres regisztracio eseten vissa ad egy tokent amit el kell taroljunk a local storageban
 
-  async login (_email: String, _password: String){
+  async login(email: string, password: string): Promise<boolean> {
+    try {
+      const response = await this.http.post<any>('http://141.147.42.101/auth/login', { email, password }).toPromise();
+      const token = response.token;
+      console.log(response);
+      
+      if (token) {
+        localStorage.setItem('token', token);
+        return true;
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false; // Login failed
+    }
+  }
+
+  /* async login (_email: String, _password: String){
     try {
       const response = await fetch('http://141.147.42.101/auth/login', {
         method: 'POST',
@@ -31,8 +49,10 @@ export class AuthService {
   
       const data = await response.json(); // Parse response body as JSON
       const token = data.token; // Assuming the token is in the response data
-  
-      console.log('Login successful. Token:', token);
+      
+      localStorage.setItem('token', token);
+      
+
       
       return token;
     } catch (error) {
@@ -40,5 +60,5 @@ export class AuthService {
       throw error; // Rethrow the error to handle it outside this function if needed
     }
     
-  }
+  } */
 }
