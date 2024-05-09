@@ -7,37 +7,38 @@ import {
   HttpClientModule,
   HttpHeaders,
 } from '@angular/common/http';
+import { StatisticsSidebarComponent } from '../statistics-sidebar/statistics-sidebar.component';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, BaseChartDirective],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    BaseChartDirective,
+    StatisticsSidebarComponent,
+  ],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.css',
 })
 export class StatisticsComponent {
   formStatistics: any;
   formId: string | any;
-  userToken: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiWGxYd2k3Uk9ZTzg0UGU2bmdnNVgiLCJleHAiOjE3MTM4OTc3Mjd9.vH-lV3ak91mzOE7VLDVDFoNlBIg4xkIrnbLM23vb4Wc';
-
-  fakeData: { [key: string]: number } = {
-    alma: 20,
-    korte: 2,
-    banan: 10,
-    pityoka: 3,
-    eper: 3,
-    kenyer: 5,
-    kokusz: 7,
-  };
+  userToken: string | any;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
     this.route.paramMap.subscribe((params) => {
       this.formId = params.get('formId');
+      if (!this.formId) {
+        this.formId = 0;
+      }
       console.log(this.formId);
     });
+
+    this.userToken = localStorage.getItem('token');
+    //console.log(this.userToken);
 
     await this.loadFormDetails();
   }
@@ -50,14 +51,19 @@ export class StatisticsComponent {
     });
 
     return this.http
-      .get<any>('http://141.147.42.101/form/get_form_submissions', {
-        headers,
-      })
+      .get<any>('http://141.147.42.101/form/get_form_submissions', { headers })
       .toPromise()
       .then((data) => {
-        this.formStatistics = data;
+        const organizedData: { [key: string]: number } = {};
 
-        console.log(data);
+        for (const option in data) {
+          if (data.hasOwnProperty(option)) {
+            organizedData[option] = data[option];
+          }
+        }
+
+        this.formStatistics = organizedData;
+        console.log(this.formStatistics);
 
         return this.formStatistics;
       })
@@ -68,22 +74,27 @@ export class StatisticsComponent {
   }
 
   getObjectKeys(obj: any): string[] {
-    return Object.keys(obj);
+    if (obj) {
+      return Object.keys(obj);
+    } else {
+      return [];
+    }
   }
 
   getTotalVotes(): number {
     let total = 0;
-    for (const option of this.getObjectKeys(this.fakeData)) {
-      total += this.fakeData[option];
+
+    for (const option of this.getObjectKeys(this.formStatistics)) {
+      total += this.formStatistics[option];
     }
     return total;
   }
 
   getMaxVotes(): number {
     let maxVotes = 0;
-    for (const option of this.getObjectKeys(this.fakeData)) {
-      if (this.fakeData[option] > maxVotes) {
-        maxVotes = this.fakeData[option];
+    for (const option of this.getObjectKeys(this.formStatistics)) {
+      if (this.formStatistics[option] > maxVotes) {
+        maxVotes = this.formStatistics[option];
       }
     }
     return maxVotes;

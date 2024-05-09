@@ -1,5 +1,6 @@
 <div class="main-container">
-  <div class="s-container">
+  <app-statistics-sidebar></app-statistics-sidebar>
+  <div class="s-container" *ngIf="this.formId">
     <div class="total">
       <p>{{ formId }} vote's</p>
       <h2>{{ getTotalVotes() }}</h2>
@@ -20,10 +21,10 @@
       <div class="chart">
         <div
           class="bar"
-          *ngFor="let option of getObjectKeys(fakeData); let i = index"
-          [style.height.%]="(fakeData[option] / getMaxVotes()) * 100"
+          *ngFor="let option of getObjectKeys(formStatistics); let i = index"
+          [style.height.%]="(formStatistics[option] / getMaxVotes()) * 100"
         >
-          <span class="bar-label">{{ fakeData[option] }}</span>
+          <span class="bar-label">{{ formStatistics[option] }}</span>
           <span class="day-label animated">{{ option }}</span>
         </div>
       </div>
