@@ -1,1 +1,8 @@
-<p>statistics-sidebar works!</p>
+<div class="side-panel">
+  <h3>Forms</h3>
+  <ul>
+    <li *ngFor="let form of forms | keyvalue">
+      {{ form.value }}
+    </li>
+  </ul>
+</div>
