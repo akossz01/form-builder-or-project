@@ -4,7 +4,6 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
 import { StatisticsComponent } from './components/statistics/statistics.component';
 
 export const routes: Routes = [
-  { path: 'form/:formId', component: DynamicFormComponent },
   {
     path: 'statistics/:formId',
     component: StatisticsComponent,
