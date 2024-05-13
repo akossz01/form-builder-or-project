@@ -58,6 +58,11 @@
               >Forgot Password?
             </span>
           </div>
+          <div
+                *ngIf="loginError" class="error-message"
+              >
+                Unsuccesfull login!
+              </div>
           <!-- <div>
             <button
               type="submit"
@@ -107,7 +112,7 @@
 
     <div class="form-container" *ngIf="registerFormVisible">
       <div class="logo-top" routerLink="">
-        <img src="./../../../assets/img/chatbot_logo.jpg" alt="botme-logo">
+        <!--<img src="./../../../assets/img/chatbot_logo.jpg" alt="botme-logo">-->
         <h1>Form Builder</h1>
       </div>
       <div class="login-form">
@@ -144,6 +149,11 @@
               required
             />
           </div>
+          <div
+                *ngIf="registerError" class="error-message"
+              >
+                this account already exists!
+              </div>
           <button
             type="submit"
             class="login-button"

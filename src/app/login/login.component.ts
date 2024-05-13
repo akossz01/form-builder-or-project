@@ -19,12 +19,16 @@ export class LoginComponent {
 
   loadingLogin = false;
   hidePassword: boolean = true;
+  loginError: boolean = false;
+  registerError: boolean = false;
+
+  loadingRegister = false;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    /* private messageService: MessageService */
+
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -49,31 +53,56 @@ export class LoginComponent {
 
           const success = await this.authService.login(email, password);
           if (success) {
-            this.router.navigate(['']); // Redirect to main page on successful login
+            this.router.navigate(['']); 
+          } else {
+            this.loginError = true;
+            this.loadingLogin = false; 
           }
         }, 2000);
       } catch (error) {
         console.error('Login error:', error);
-      } finally {
+        this.loginError = true;
         this.loadingLogin = false;
+      } 
+    }
+  }
+
+  onRegister() {
+    if (this.registerForm.valid) {
+      try {
+        setTimeout(async () => {
+      const { name, email, password } = this.registerForm.value;
+
+      const success = await this.authService.register(name, email, password);
+        if (success) {
+          // Registration successful, handle accordingly (e.g., redirect)
+          this.registerError = true;
+        } else {
+          // Registration failed
+          
+        }
+      }, 2000);
+      } catch (error) {
+        console.error('Registration error:', error);
+        this.registerError = true;
+      } finally {
+        this.loadingRegister = false;
       }
     }
   }
-  onRegister() {
-    if (this.registerForm.valid) {
-      const { name, email, password } = this.registerForm.value;
 
-    }
-  }
   forgotPassword() {
     throw new Error('Method not implemented.');
   }
+
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
+
   toggleRegisterForm() {
     this.registerFormVisible = !this.registerFormVisible;
   }
+  
   googleSignIn() {
     throw new Error('Method not implemented.');
   }
