@@ -14,7 +14,8 @@ export class StatisticsSidebarComponent implements OnInit {
   public forms: { [key: string]: string } = {};
   userToken: string | any;
 
-  constructor(private http: HttpClient, private router: Router) { // Inject Router
+  constructor(private http: HttpClient, private router: Router) {
+    // Inject Router
     this.userToken = localStorage.getItem('token');
   }
 
