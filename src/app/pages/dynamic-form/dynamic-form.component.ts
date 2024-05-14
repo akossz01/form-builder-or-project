@@ -16,9 +16,7 @@ export class DynamicFormComponent {
   errorNoSelection: boolean = false;
   submitted: boolean = false;
   completedEarlier: boolean = false;
-
-  // Replace with actual value from local storage
-  userToken: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMXI0N1U4Uzd6UHNCb3ZqYW4xcmwiLCJleHAiOjE3MTMyNzMwMDR9.dBEn5NzgcVSD2XJJ3HknQnZqTlv9kLNP05dl5oZsnYY';
+  private userToken: string | any;
 
   forms: any[] = [
     {
@@ -43,6 +41,8 @@ export class DynamicFormComponent {
     this.route.paramMap.subscribe((params) => {
       this.formId = params.get('formId');
     });
+
+    this.userToken = localStorage.getItem('token');
     
     await this.loadFormDetails();
   }
@@ -54,10 +54,10 @@ export class DynamicFormComponent {
       'form-id': this.formId,
     });
     
-    return this.http.get<any>('http://141.147.42.101:3001/form/get_form_data', { headers })
+    return this.http.get<any>('http://141.147.42.101/form/get_form_data', { headers })
     .toPromise()
     .then(data => {
-      this.formDetails = data;
+      this.formDetails = data;      
       
       return this.formDetails;
     })
