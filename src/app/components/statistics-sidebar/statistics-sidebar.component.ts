@@ -1,13 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics-sidebar',
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   templateUrl: './statistics-sidebar.component.html',
   styleUrl: './statistics-sidebar.component.css',
 })
@@ -15,7 +14,7 @@ export class StatisticsSidebarComponent implements OnInit {
   public forms: { [key: string]: string } = {};
   userToken: string | any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) { // Inject Router
     this.userToken = localStorage.getItem('token');
   }
 
@@ -26,7 +25,7 @@ export class StatisticsSidebarComponent implements OnInit {
   async loadForms() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      auth: this.userToken
+      auth: this.userToken,
     });
 
     return this.http
@@ -43,7 +42,6 @@ export class StatisticsSidebarComponent implements OnInit {
 
         this.forms = organizedData;
         console.log(this.forms);
-        
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -51,7 +49,9 @@ export class StatisticsSidebarComponent implements OnInit {
   }
 
   selectForm(formId: string) {
-    throw new Error('Method not implemented.');
-    // itt atalitjuk a linket (routot) ugy hogy /statistics/:formId
+    console.log(formId);
+
+    // Navigate to the statistics route with the formId parameter
+    this.router.navigate(['/statistics', formId]); // Assuming '/statistics/:formId' is your desired route
   }
 }
