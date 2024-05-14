@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics-sidebar',
@@ -15,7 +16,7 @@ export class StatisticsSidebarComponent implements OnInit {
   public forms: { [key: string]: string } = {};
   userToken: string | any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.userToken = localStorage.getItem('token');
   }
 
@@ -51,7 +52,8 @@ export class StatisticsSidebarComponent implements OnInit {
   }
 
   selectForm(formId: string) {
-    throw new Error('Method not implemented.');
-    // itt atalitjuk a linket (routot) ugy hogy /statistics/:formId
+    console.log(formId);
+
+    this.router.navigate(['/statistics', formId]);
   }
 }
