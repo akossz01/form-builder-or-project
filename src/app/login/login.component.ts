@@ -91,6 +91,12 @@ export class LoginComponent {
     }
   }
 
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']); 
+    console.log('logging out');
+  }
+
   forgotPassword() {
     throw new Error('Method not implemented.');
   }
