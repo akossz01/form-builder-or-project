@@ -71,17 +71,17 @@ export class LoginComponent {
     if (this.registerForm.valid) {
       try {
         setTimeout(async () => {
-      const { name, email, password } = this.registerForm.value;
-
-      const success = await this.authService.register(name, email, password);
-        if (success) {
-          // Registration successful, handle accordingly (e.g., redirect)
-          this.registerError = true;
-        } else {
-          // Registration failed
-          
-        }
-      }, 2000);
+          const { name, email, password } = this.registerForm.value;
+          const success = await this.authService.register(name, email, password);
+          console.log(success);
+          if (success) {
+            this.registerError = true;
+            this.router.navigate(['']);
+          } else {
+            // Registration failed
+            
+          }
+        }, 2000);
       } catch (error) {
         console.error('Registration error:', error);
         this.registerError = true;

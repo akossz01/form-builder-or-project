@@ -33,13 +33,13 @@ export class AuthService {
   async register(name: string, email:string, password: string): Promise<boolean> {
     try {
       const response = await this.http.post<any>('http://141.147.42.101/auth/register', { name, email, password }).toPromise();
-      //const token = response.token;
+      const token = response.token;
       console.log(response);
       
-      /* if(token){
+       if(token){
         localStorage.setItem('token', token);
         return true;
-      } */ 
+      }  
       return false;
     } catch (error) {
       console.error('Register error:', error);
