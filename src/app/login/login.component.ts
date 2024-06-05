@@ -97,10 +97,6 @@ export class LoginComponent {
     console.log('logging out');
   }
 
-  forgotPassword() {
-    throw new Error('Method not implemented.');
-  }
-
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
@@ -108,11 +104,5 @@ export class LoginComponent {
   toggleRegisterForm() {
     this.registerFormVisible = !this.registerFormVisible;
   }
-  
-  googleSignIn() {
-    throw new Error('Method not implemented.');
-  }
-
-
 
 }
