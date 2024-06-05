@@ -25,22 +25,18 @@ export class StatisticsComponent {
   formStatistics: any;
   formId: string | any;
   userToken: string | any;
-
+  
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.formId = params.get('formId');
-      if (!this.formId) {
-        this.formId = 0;
+      if (this.formId) {
+        this.loadFormDetails();
       }
-      console.log(this.formId);
     });
 
     this.userToken = localStorage.getItem('token');
-    //console.log(this.userToken);
-
-    await this.loadFormDetails();
   }
 
   async loadFormDetails() {
