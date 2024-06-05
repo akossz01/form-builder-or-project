@@ -82,7 +82,7 @@ export class DynamicFormComponent {
   }
 
 
-  onSubmit() {
+  async onSubmit() {
     // Call the API to submit the form
     // /form/submit -> header: token, body: form_id, opciok
     if (this.selectedOptions.length === 0) {
@@ -91,7 +91,22 @@ export class DynamicFormComponent {
     } else {
       this.submitted = true;
       
-      
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'auth': this.userToken,
+      });
+
+      const requestBody = {
+        form_id: this.formId,
+        options: this.selectedOptions,
+      };
+
+      try {
+        const response = await this.http.post<any>('http://141.147.42.101/form/submit', requestBody, { headers }).toPromise();
+        console.log('Form submitted successfully:', response);
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
 
       console.log(
         'Form submitted with options: ' +
