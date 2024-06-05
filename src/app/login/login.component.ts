@@ -49,11 +49,11 @@ export class LoginComponent {
         setTimeout(async () => {
           const { email, password, remember } = this.loginForm.value;
           this.loadingLogin = true;
-          console.log('Login called');
+          // console.log('Login called');
 
           const success = await this.authService.login(email, password);
           if (success) {
-            this.router.navigate(['']); 
+            this.router.navigate(['statistics']); 
           } else {
             this.loginError = true;
             this.loadingLogin = false; 
@@ -73,7 +73,7 @@ export class LoginComponent {
         setTimeout(async () => {
           const { name, email, password } = this.registerForm.value;
           const success = await this.authService.register(name, email, password);
-          console.log(success);
+          // console.log(success);
           if (success) {
             this.registerError = true;
             this.router.navigate(['']);
@@ -94,7 +94,7 @@ export class LoginComponent {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']); 
-    console.log('logging out');
+    // console.log('logging out');
   }
 
   togglePasswordVisibility() {

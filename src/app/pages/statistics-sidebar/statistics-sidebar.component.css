@@ -29,3 +29,8 @@ li {
     border-bottom: 1px solid #e9ecef;
     cursor: pointer;
 }
+
+li i {
+    position: absolute;
+    right: 12px;
+}

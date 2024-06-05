@@ -56,4 +56,8 @@ export class StatisticsSidebarComponent implements OnInit {
 
     this.router.navigate(['/statistics', formId]);
   }
+
+  openForm(id: string) {
+    this.router.navigate(['/form', id]);
+  }
 }

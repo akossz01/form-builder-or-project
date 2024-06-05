@@ -2,7 +2,7 @@
   <h3>Forms</h3>
   <ul>
     <li *ngFor="let form of forms | keyvalue" (click)="selectForm(form.key)">
-      {{ form.value }}
+      {{ form.value }} <i class="fa-solid fa-arrow-up-right-from-square" (click)="openForm(form.key)"></i>
     </li>
   </ul>
 </div>
