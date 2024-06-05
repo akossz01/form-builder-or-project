@@ -49,15 +49,6 @@
               <i class="fa-solid {{ hidePassword ? 'fa-eye' : 'fa-eye-slash' }} hide-pass" (click)="togglePasswordVisibility()"></i>
             </div>
           </div>
-          <div class="remember-me-group">
-            <input type="checkbox" id="remember-me" formControlName="remember"/>
-            <label for="rememberMe" class="remember-me-label"
-              >Remember Me</label
-            >
-            <span class="forgot-password-button" (click)="forgotPassword()"
-              >Forgot Password?
-            </span>
-          </div>
           <div
                 *ngIf="loginError" class="error-message"
               >
@@ -89,15 +80,6 @@
             </button>
           </div>
           <div>
-            <button
-              type="button"
-              class="sign-with-google-button"
-              label="Sign in with Google"
-              (click)="googleSignIn()"
-            >
-              <i class="fa-brands fa-google"></i>
-              Sign in with Google
-            </button>
           </div>
           <p class="switch-register">
             Don't have an account?
@@ -128,6 +110,12 @@
               class="register-input"
               required
             />
+            <div
+                *ngIf="registerForm.get('name')?.errors?.['required'] && registerForm.get('name')?.touched"
+                class="error-message"
+              >
+                Name is required
+              </div>
           </div>
           <div class="form-group">
             <label for="registerEmail">Email:</label>
@@ -138,6 +126,12 @@
               class="register-input"
               required
             />
+            <div
+                *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched"
+                class="error-message"
+              >
+                Email is required
+              </div>
           </div>
           <div class="form-group">
             <label for="registerPassword">Password:</label>
@@ -148,6 +142,18 @@
               class="register-input"
               required
             />
+            <div
+                *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched"
+                class="error-message"
+              >
+                Password is required
+              </div>
+              <div
+              *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched"
+              class="error-message"
+            >
+              Password is too short
+            </div>
           </div>
           <div
                 *ngIf="registerError" class="error-message"
